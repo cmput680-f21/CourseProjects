@@ -1,0 +1,23 @@
+# CMPUT 680 Projects
+## Profitability Analysis of Data Reorganization to Enable Compiler Assisted Active Lane Consolidation
+
+Wyatt Praharenka designed a technique, Active Lane Consolidation (ACL), that increases the vector unit utilization in vectorized loops with divergent control flow.
+In one of ACL's incarnations, multiple interations of a vectorized loop are inspected to compute ahead-of-time the conditions associated with each vector lane.
+ACL then consolidate/merges actives lanes into a vector register until it obtains a uniform vector -- all its lanes are active.
+The merged uniform vectors are used for the loop computations and thus fully utilize the CPU's vector unit.
+The assemble of uniform vectors requires data to be accessed in a different order than in the original vectorized loop.
+Changes in data access order may lead to worse performance due memory hiearchy effects -- e.g increase in cache misses.
+
+Packing is a widespread technique for improving cache utilization by reorganizing data in the same order in which it will be accessed.
+The data is reoganized in parts and each portion of the data is copied into temporary buffer in the same order of the memory access in loops.
+Packing is heavily used to implement high-performance linear algebra libraries and to increase cache temporal and spatial locality when operating larger matrices.
+However, packing adds overhead and such overhead needs to be amortized by the performance improvements that are possible when data is resused multiple times.
+Packing could be coupled with ACL to improve cache locality when vectors are merged as data is delivered in the same order of the memory accesses.
+The main limitation that stops packing from being used with ACL is that the conditions used to consolidate vectors might only be known at runtime, and packing is traditionally implemented with compile-time knowledge of the data access order.
+
+The goal of this project is to perform a limit study to discover if the aforementioned memory hiearchy effects with ACL are indeed a performance problem.
+The assessment can supose the existance of an oracle that knows the exact access order at compile time.
+Then data can be packed in the order known by the oracle.
+Experiments contrasting the performance of ACL with and without packing will reveal: (1) if memory hiearchy effects limit the application of ACL and (2) if packing can be used to increase the cases in which ACL can be applied by decreasing the memory hierarchy effects.
+
+References: [Wyatt's M.Sc. thesis](Add-link-here). 
