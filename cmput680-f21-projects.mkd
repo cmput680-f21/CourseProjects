@@ -25,4 +25,48 @@ References:
 
   * [Wyatt's M.Sc. thesis](Add-link-here).
 
-References: [Wyatt's M.Sc. thesis](Add-link-here). 
+## Understanding Why Modern Auto-Vectorizing Compilers Fail to Vectorize Loops
+
+Vectorization is a widely used loop optimization technique that increases application throughput.
+Manual vectorization of loops is a complex and error-prone task and thus modern compilers automate it through a set of loop transformation passes.
+Vectorization passes rely on legality and profitability checks to decide if loops are vectorized.
+Such checks depend on data-flow analysis passes to collect information about the target loop.
+Legality checks depend on information such as memory dependencies -- e.g. from array access  -- and the loop's control-flow structure -- e.g. nesting level.
+Even more information might be collected to decide on the profitability of vectorizing a loop.
+A loop is deemed profitable to vectorize based, for instance, on the data-types of variables used, memory access alignment, induction variable properties (e.g. monotonicity and step), and knowledge on the termination condition or bound of a loop.
+The frontend of modern compilers do encode some language-level information into the compiler's optimization representation -- Intermediate Representation (IR).
+However, the amount of information available to an auto-vectorizing compiler can vary depending on whether programmers use non-standard attributes, compilation flags, code annotations.
+
+Recent studies show how dependent sensitive different auto-vectorizing compilers are to information withdraw.
+Most, if not all, compilers are less capable of vectorizing loops when one or more key loop/program properties are missing.
+Missing a single property might prevent vectorizing from happening at all.
+On the other hand, and even if two compilers have the same amount of information, a loop might be vectorized by one compiler but not the other.
+In this direction, the goal of this project is to assess the loop vectorization passes in LLVM.
+More specifically, the project should determine the most common reasons that stop LLVM's vectorization passes from vectorizing loops.
+The assessment must contrast the effectiveness of LLVM's vectorizers against other auto-vectorizing compilers (e.g. GCC, ICC, and XLC).
+
+References:
+
+  * [Evaluating Auto-Vectorizing Compilers through Objective Withdrawal of Useful Information](https://dl.acm.org/doi/abs/10.1145/3356842)
+
+## Data-flow Analysis to Determine the Legality of Python Code Modernization Transformations
+
+The amount of available main memory is one of the limiting factors when process the ever-increasing amount of data that is generated on a daily basis.
+Python is one of the current modern languages that shows growing popularity amount data-scientists for its user-friendliness to both novice programmers and non-computer savvy audiences.
+Although prototyping and writing utility scripts in Python is simple, non-seasoned Python programmers might face hard limitations as the size of datasets processed by such small Python programs grows.
+For example, opening a file and extract raw data from it -- e.g. when summarizing results -- is a commonly found idiom in many Python programs.
+The most simple way to implement such idiom in Python is to (1) call builtin or module function to open, (2) read the file, and (3) use a loop to iterate over the data read from the file.
+While (1) is usually a constant time operation, (2) depends on how large the file being read is.
+In addition, (2) read the entire file is read, usually, into a Python list stored in main memory.
+If the file is larger than the available main memory the Python program will never be able to process the whole file.
+Experienced Python programmers, or those tuned with the latest Python features, known a more efficient way to implement the same idiom with the concept of generators.
+A generator in python is an object that allows one to consume data in a on-demand manner.
+For example, instead of reading the whole file into a list and then applying a summarization function that consumes each list element, a generator that reads each element and passes it to the said function can be used.
+With a generator, each data element is read from the file as needed by the consuming function or Python expression without creating a large in-memory list that would be dead after the consuming expression.
+A generator can be any Python expression -- with the yield expression --  and thus can also be applied at the granularity of a function --- with the yield statement.
+In this direction, the goal of this project is to identify opportunities to modernize Python code with a transparent and automated way to use novel Python features.
+The project should create a data-flow analysis that determines the legality of applying modernizing transformations.
+
+References:
+
+  * [Quantifying the Transition from Python 2 to 3: An Empirical Study of Python Applications](https://ieeexplore.ieee.org/abstract/document/8170118)
