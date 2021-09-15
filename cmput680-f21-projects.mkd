@@ -71,7 +71,6 @@ References:
 
   * [Quantifying the Transition from Python 2 to 3: An Empirical Study of Python Applications](https://ieeexplore.ieee.org/abstract/document/8170118)
 
-
 ## Detecting Code Idioms in LLVM's Intermediate Representation
 
 Code idioms are frequently found constructs in programs that express a computation, are easily recognized (by humans), and are simple to compose.
@@ -113,3 +112,54 @@ References:
   * [KernelFaRer: Replacing Native-Code Idioms with High-Performance Library Calls](https://dl.acm.org/doi/abs/10.1145/3459010)
   * [OpenBLAS](https://github.com/xianyi/OpenBLAS)
   * [Polybench](https://web.cse.ohio-state.edu/~pouchet.2/software/polybench/)
+
+## Assessing Potentially Missed Optimization Opportunities in LLVM
+
+Designing compiler transformation passes is not an easy task.
+Besides guaranteeing that transformations are correct -- i.e. they preserve the observable behavior of the program --, designers need to try not to miss opportunities to apply their code transformation by using as much as possible the available analysis results.
+In traditional compiler development, correctness is the main focus and is part of the development and testing framework.
+This correctness-focused validation usually fail to identify missed optimization opportunities.
+Thus, many easy to correct performance regressions are not detected by current compiler development practices.
+To address the need to also test the coverage of modern compiler transformations, NULLSTONE was developed.
+NULLSTONE is a automated compiler performance analysis tool that uses a QA approach for testing coverage and isolation to measure a compiler's optimizer.
+
+The project's main goal is to use NULLSTONE as a tool compare LLVM's abilities to optimize code against GCC's optimization passes.
+The project aims at identifying opportunities that might be missed by LLVM and point to the root cause that stops LLVM, not GCC, to optimize the code, or vice-versa.
+The results must highlight the main transformation passes that miss opportunities and the main reasons that prevent LLVM to apply code transformations.
+
+References:
+
+  * [NULLSTONE](http://www.nullstone.com/index.htm)
+
+## Cost-Benefit Analysis of Applying Custom Optimization Pipelines with LLVM
+
+Optimization pipelines are complex to design as different input codes might get better optimized by applying different optimizations.
+In addition, even if the same set of optimizations benefit different codes, it might be that applying transformations in different orders might produce better results than using a single order on different codes.
+Compiler engineers compromise by deciding on a static pipeline to optimize well the common case -- guided by a selected number of benchmarks -- instead of the impossible design of having infinitely many pipelines, one for each possible program.
+Therefore, there are optimizations that might be executed on key program functions that are not actually transforming or optimizing the code.
+In addition, most transformations require analysis information to be collected in order to access feasibility and benefit to apply the transformation.
+Collecting information and perform code analysis can be expensive.
+With the compromised decision of having static pipelines and the potential cost without benefit of running some transformations, this project aims to understand the cost-benefit of applying a custom pipeline in frequently executed code (hot code).
+The project must investigate the benefits in compilation time of running a smaller number of optimizations and the performance implications of reducing the set of transformations applied on hot code.
+The results should indicate whether designing a custom optimization pipeline provides compilation time reductions without significantly sacrificing overall applications performance.
+
+References:
+
+  * [Applying Support Vector Machines to Discover Just-in-Time Method-Specific Compilation Strategies](https://webdocs.cs.ualberta.ca/~amaral/thesis/RicardoNSanchezMSc.pdf)
+
+## An Exploration of LLVM's libFuzzer on Identifying Bugs by Input Fuzzing
+
+Constructing compilers is a very complex task.
+Testing the correctness of compilers is of comparable or greater difficulty.
+Fuzzing, a technique for generating random programs, showed to be very effective in discovering bugs in many compilers.
+LLVM has a maturing project that aims at constructing fuzzers for many if not all of its components.
+The project's main goal is to explorer the existing capabilities and limitations in LLVM's libFuzzer to identify bugs.
+The exploration should focus on either coverage or correctness bugs and contrast LLVM against GCC with bugs identify during the project of recently reported bugs that are yet not fixed in LLVM.
+
+
+References:
+
+  * [Finding and Understanding Bugs in C Compilers](https://dl.acm.org/doi/abs/10.1145/1993498.1993532)
+  * [Test-Case Reduction for C Compiler Bugs](https://dl.acm.org/doi/10.1145/2345156.2254104)
+  * [libFuzzer](https://llvm.org/docs/LibFuzzer.html)
+  * [libFuzzer Tutorial](https://github.com/google/fuzzing/blob/master/tutorial/libFuzzerTutorial.md)
