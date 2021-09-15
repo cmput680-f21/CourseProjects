@@ -70,3 +70,46 @@ The project should create a data-flow analysis that determines the legality of a
 References:
 
   * [Quantifying the Transition from Python 2 to 3: An Empirical Study of Python Applications](https://ieeexplore.ieee.org/abstract/document/8170118)
+
+
+## Detecting Code Idioms in LLVM's Intermediate Representation
+
+Code idioms are frequently found constructs in programs that express a computation, are easily recognized (by humans), and are simple to compose.
+Some idioms become so common that they are incorporated into languages as alternative ways to write frequently used code.
+In the C language, incrementing a variable or accumulating into a variable are idioms found potentially in any program.
+As a result, the C language designers added shorthand ways to express such idioms -- `i++` or `++i` instead of `i = i + 1` and `c += a*b` instead of `c = c + a*b`.
+However, there are more interesting idioms that would be profitable for the compiler to be able to detect so more efficient code for them could be generated.
+
+One class of idioms that are of high interest are those in the linear algebra domain.
+The General Matrix-Matrix Multiplication (GEMM) is a good example of such idioms.
+GEMM operations are widely used in areas like machine learning, image processing, and scientific computing.
+Writing a correct implementation of GEMM is not a hard task.
+Implementing one that executes close to peak performance, however, is known to be significantly harder.
+This difficulty observation motivated the creation of libraries which provide high-performance implementations of basic linear algebra routines (BLAS).
+Nevertheless, many programs have their own and less performant implementations of BLAS routines.
+Changing their code to call BLAS libraries requires manual changes to the code that might introduce bugs and requires further testing.
+
+KernelFaRer, an automatic idiom recognizer and replacement algorithm, was designed to capture such idioms and transparently replace them by high-performance library calls.
+KernelFaRer is fully implemented as a LLVM IR pass and detects idioms in programs writing in any language that has a LLVM IR frontend.
+KerneFaRer extends LLVM's PatternMatch to facilitate the construction of novel pattern descriptions to detect other idioms.
+
+### Implement Pattern Descriptions to Detect New Idiom(s)
+
+The goal of this project is to write a pattern description to detect a new pattern.
+The project can either build on top of KernelFaRer and detect other linear algebra patterns or use KernelFaRer as an inspiration to write patterns descriptions for non-numerical patterns (e.g. accessing/updating a data-structure, sorting a list).
+Both correctness and completeness should be taken into consideration for the project.
+Reasonable test should indicate the the pattern description allows only instances of the target idiom to be detected, i.e. no false positives.
+In addition, the tests should also indicate that a significant number of variants of an idiom are detectable by the pattern description.
+
+### Study Transformation Passes to Match Hidden Instances of Idioms
+
+There are cases where computations that are not direct instances of a given idiom could be transformed to use a idioms implementation as a building block.
+Examples are Doolittle's LU Decomposition and Multiresolution Analysis Kernel [Polybench].
+Both do not use the GEMM idiom as a building block but could after some code transformations.
+In this direction, the goal of project is to investigate which compiler transformation could enable KernelFaRer to replace parts of a computation with calls to high-performance libraries like BLAS.
+
+References:
+
+  * [KernelFaRer: Replacing Native-Code Idioms with High-Performance Library Calls](https://dl.acm.org/doi/abs/10.1145/3459010)
+  * [OpenBLAS](https://github.com/xianyi/OpenBLAS)
+  * [Polybench](https://web.cse.ohio-state.edu/~pouchet.2/software/polybench/)
