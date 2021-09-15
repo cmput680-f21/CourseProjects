@@ -154,7 +154,7 @@ Testing the correctness of compilers is of comparable or greater difficulty.
 Fuzzing, a technique for generating random programs, showed to be very effective in discovering bugs in many compilers.
 LLVM has a maturing project that aims at constructing fuzzers for many if not all of its components.
 The project's main goal is to explorer the existing capabilities and limitations in LLVM's libFuzzer to identify bugs.
-The exploration should focus on either coverage or correctness bugs and contrast LLVM against GCC with bugs identify during the project of recently reported bugs that are yet not fixed in LLVM.
+The exploration should focus on either coverage or correctness bugs and contrast LLVM against GCC with bugs identified during the project of recently reported bugs that are yet not fixed in LLVM.
 
 
 References:
