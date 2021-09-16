@@ -1,4 +1,4 @@
-TARGET=cmput680-f21-projects.html
+TARGET=index.html
 
 all: $(TARGET)
 
