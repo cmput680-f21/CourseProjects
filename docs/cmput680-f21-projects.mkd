@@ -23,7 +23,7 @@ Experiments contrasting the performance of ACL with and without packing will rev
 
 References:
 
-  * [Wyatt's M.Sc. thesis](Add-link-here).
+  * [Wyatt's M.Sc. thesis](PraharenkaMSc.pdf).
 
 ## Understanding Why Modern Auto-Vectorizing Compilers Fail to Vectorize Loops
 
@@ -51,20 +51,20 @@ References:
 
 ## Data-flow Analysis to Determine the Legality of Python Code Modernization Transformations
 
-The amount of available main memory is one of the limiting factors when process the ever-increasing amount of data that is generated on a daily basis.
-Python is one of the current modern languages that shows growing popularity amount data-scientists for its user-friendliness to both novice programmers and non-computer savvy audiences.
+The amount of available main memory is one of the limiting factors when processing the ever-increasing amount of data that is generated on a daily basis.
+Python is one of the current modern languages that shows growing popularity amount data-scientists for its user-friendliness to both novice programmers and non-computer savvy users.
 Although prototyping and writing utility scripts in Python is simple, non-seasoned Python programmers might face hard limitations as the size of datasets processed by such small Python programs grows.
-For example, opening a file and extract raw data from it -- e.g. when summarizing results -- is a commonly found idiom in many Python programs.
-The most simple way to implement such idiom in Python is to (1) call builtin or module function to open, (2) read the file, and (3) use a loop to iterate over the data read from the file.
+For example, opening a file and extracting raw data from it -- e.g. when summarizing results -- is a common idiom in many Python programs.
+The simplest way to implement such idiom in Python is to (1) call builtin or module function to open, (2) read the file, and (3) use a loop to iterate over the data read from the file.
 While (1) is usually a constant time operation, (2) depends on how large the file being read is.
-In addition, (2) read the entire file is read, usually, into a Python list stored in main memory.
+In addition, in (2) the entire file is read, usually, into a Python list stored in main memory.
 If the file is larger than the available main memory the Python program will never be able to process the whole file.
-Experienced Python programmers, or those tuned with the latest Python features, known a more efficient way to implement the same idiom with the concept of generators.
-A generator in python is an object that allows one to consume data in a on-demand manner.
-For example, instead of reading the whole file into a list and then applying a summarization function that consumes each list element, a generator that reads each element and passes it to the said function can be used.
-With a generator, each data element is read from the file as needed by the consuming function or Python expression without creating a large in-memory list that would be dead after the consuming expression.
+Experienced Python programmers, or those tuned with the latest Python features, know a more efficient way to implement the same idiom using the concept of generators.
+A generator in python is an object that allows on-demand data consumption.
+For example, instead of reading the whole file into a list and then applying a summarization function that consumes each list element, a generator that reads each element and passes it to such a function can be used.
+With a generator, each data element is read from the file, as needed by the consuming function or Python expression, without creating a large in-memory list that would be dead after the consuming expression.
 A generator can be any Python expression -- with the yield expression --  and thus can also be applied at the granularity of a function --- with the yield statement.
-In this direction, the goal of this project is to identify opportunities to modernize Python code with a transparent and automated way to use novel Python features.
+The goal of this project is to identify opportunities to modernize Python code by creating a transparent and automated way to use novel Python features.
 The project should create a data-flow analysis that determines the legality of applying modernizing transformations.
 
 References:
@@ -73,39 +73,41 @@ References:
 
 ## Detecting Code Idioms in LLVM's Intermediate Representation
 
-Code idioms are frequently found constructs in programs that express a computation, are easily recognized (by humans), and are simple to compose.
+Code idioms are frequent constructs in programs that express a computation, are easily recognized (by humans), and are simple to compose.
 Some idioms become so common that they are incorporated into languages as alternative ways to write frequently used code.
 In the C language, incrementing a variable or accumulating into a variable are idioms found potentially in any program.
 As a result, the C language designers added shorthand ways to express such idioms -- `i++` or `++i` instead of `i = i + 1` and `c += a*b` instead of `c = c + a*b`.
-However, there are more interesting idioms that would be profitable for the compiler to be able to detect so more efficient code for them could be generated.
+However, there are more interesting idioms that would be profitable for the compiler to be able to detect in order to generate more efficient code.
 
-One class of idioms that are of high interest are those in the linear algebra domain.
+One class of idioms that are of high interest are those in the linear-algebra domain.
 The General Matrix-Matrix Multiplication (GEMM) is a good example of such idioms.
-GEMM operations are widely used in areas like machine learning, image processing, and scientific computing.
+GEMM operations are widely used in areas such as machine learning, image processing, and scientific computing.
 Writing a correct implementation of GEMM is not a hard task.
 Implementing one that executes close to peak performance, however, is known to be significantly harder.
-This difficulty observation motivated the creation of libraries which provide high-performance implementations of basic linear algebra routines (BLAS).
-Nevertheless, many programs have their own and less performant implementations of BLAS routines.
-Changing their code to call BLAS libraries requires manual changes to the code that might introduce bugs and requires further testing.
+This difficulty observation motivated the creation of libraries that provide high-performance implementations of basic linear algebra routines (BLAS).
+Nevertheless, many programs have their own, less performant, implementations of BLAS routines.
+Changing their code to call BLAS libraries requires manual changes to the code that might introduce bugs and require further testing.
 
 KernelFaRer, an automatic idiom recognizer and replacement algorithm, was designed to capture such idioms and transparently replace them by high-performance library calls.
-KernelFaRer is fully implemented as a LLVM IR pass and detects idioms in programs writing in any language that has a LLVM IR frontend.
+KernelFaRer is fully implemented as an LLVM IR pass and detects idioms in programs writing in any language that has a LLVM IR frontend.
 KerneFaRer extends LLVM's PatternMatch to facilitate the construction of novel pattern descriptions to detect other idioms.
+
+The following two projects are based on KernelFaRer
 
 ### Implement Pattern Descriptions to Detect New Idiom(s)
 
 The goal of this project is to write a pattern description to detect a new pattern.
 The project can either build on top of KernelFaRer and detect other linear algebra patterns or use KernelFaRer as an inspiration to write patterns descriptions for non-numerical patterns (e.g. accessing/updating a data-structure, sorting a list).
 Both correctness and completeness should be taken into consideration for the project.
-Reasonable test should indicate the the pattern description allows only instances of the target idiom to be detected, i.e. no false positives.
+Reasonable test should indicate that the pattern description allows matches instances of the target idiom, i.e. there are no false positives.
 In addition, the tests should also indicate that a significant number of variants of an idiom are detectable by the pattern description.
 
 ### Study Transformation Passes to Match Hidden Instances of Idioms
 
-There are cases where computations that are not direct instances of a given idiom could be transformed to use a idioms implementation as a building block.
+There are cases where computations that are not direct instances of a given idiom could be transformed to use an idiom's implementation as a building block.
 Examples are Doolittle's LU Decomposition and Multiresolution Analysis Kernel [Polybench].
-Both do not use the GEMM idiom as a building block but could after some code transformations.
-In this direction, the goal of project is to investigate which compiler transformation could enable KernelFaRer to replace parts of a computation with calls to high-performance libraries like BLAS.
+Neither of those use the GEMM idiom as a building block but could use that idiom after some code transformations.
+In this direction, the goal of project is to investigate which compiler transformation could enable KernelFaRer to replace parts of a computation with calls to high-performance libraries such as BLAS.
 
 References:
 
@@ -116,10 +118,10 @@ References:
 ## Assessing Potentially Missed Optimization Opportunities in LLVM
 
 Designing compiler transformation passes is not an easy task.
-Besides guaranteeing that transformations are correct -- i.e. they preserve the observable behavior of the program --, designers need to try not to miss opportunities to apply their code transformation by using as much as possible the available analysis results.
+Besides guaranteeing that transformations are correct -- i.e. that they preserve the observable behavior of the program --, designers need to try not to miss opportunities to apply their code transformation by using as much as possible the available analysis results.
 In traditional compiler development, correctness is the main focus and is part of the development and testing framework.
-This correctness-focused validation usually fail to identify missed optimization opportunities.
-Thus, many easy to correct performance regressions are not detected by current compiler development practices.
+This correctness-focused validation usually fails to identify missed optimization opportunities.
+Thus, many easy-to-correct performance regressions are not detected by current compiler development practices.
 To address the need to also test the coverage of modern compiler transformations, NULLSTONE was developed.
 NULLSTONE is a automated compiler performance analysis tool that uses a QA approach for testing coverage and isolation to measure a compiler's optimizer.
 
@@ -133,7 +135,7 @@ References:
 
 ## Cost-Benefit Analysis of Applying Custom Optimization Pipelines with LLVM
 
-Optimization pipelines are complex to design as different input codes might get better optimized by applying different optimizations.
+Optimization pipelines are complex to design because different program codes might get better optimized by applying different optimizations.
 In addition, even if the same set of optimizations benefit different codes, it might be that applying transformations in different orders might produce better results than using a single order on different codes.
 Compiler engineers compromise by deciding on a static pipeline to optimize well the common case -- guided by a selected number of benchmarks -- instead of the impossible design of having infinitely many pipelines, one for each possible program.
 Therefore, there are optimizations that might be executed on key program functions that are not actually transforming or optimizing the code.
