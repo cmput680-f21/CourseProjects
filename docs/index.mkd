@@ -1,5 +1,21 @@
 # CMPUT 680 Projects
 
+## Project Interviews and Project Written Proposal
+
+Both the project interview presentations and the project written proposals will have the same content and answer the same questions. They are just in two different formats. The presentation is oral with some support presenting material if needed and the proposal is written. Both of them shoud address the following questions:
+
+- What is the problem that will be studied/solved?
+- Why is it relevant? Why should anyone care?
+- Has anyone else worked in this problem before? What have they done? What is left to do? What will be done in this project that is different than the past?
+- Are there research questions to be answered by this project? What are they?
+- What type of prototype or evaluation will be needed to obtain data to support any claims that could be made at the end of the project?
+- What infrastructure will be used? Is this infrastructure available and accessible? Are there challenges to use it?
+- What are risks or possible points of failure?
+- Who should be reached out to obtain help? Are there mentors for this project? Has any discussion with potential mentors taken place?
+- What is the time line for the project and which member of the team will take which responsibilities?
+- What is the schedule for meetings and synchronization points for the team?
+- Which platform/infrastructure will be used for code development, to store/maintain data, etc?
+
 ## Profitability Analysis of Data Reorganization to Enable Compiler Assisted Active Lane Consolidation
 
 Wyatt Praharenka designed a technique, Active Lane Consolidation (ACL), that increases the vector unit utilization in vectorized loops with divergent control flow.
