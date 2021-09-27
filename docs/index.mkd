@@ -2,11 +2,14 @@
 
 ## Project Interviews and Project Written Proposal
 
-Both the project interview presentations and the project written proposals will have the same content and answer the same questions. They are just in two different formats. The presentation is oral with some support presenting material if needed and the proposal is written. Both of them shoud address the following questions:
+Both the project interview presentations and the project written proposals will have the same content and answer the same questions.
+They are just in two different formats.
+The presentation is oral with some support presenting material (e.g. 2-4 slides) if needed and the proposal is written.
+Both of them shoud address the following questions:
 
 - What is the problem that will be studied/solved?
 - Why is it relevant? Why should anyone care?
-- Has anyone else worked in this problem before? What have they done? What is left to do? What will be done in this project that is different than the past?
+- Has anyone else worked in this problem before? What have they done? What is left to do? What will be done in this project that is different than prior work?
 - Are there research questions to be answered by this project? What are they?
 - What type of prototype or evaluation will be needed to obtain data to support any claims that could be made at the end of the project?
 - What infrastructure will be used? Is this infrastructure available and accessible? Are there challenges to use it?
