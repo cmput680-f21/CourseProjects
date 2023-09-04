@@ -2,12 +2,15 @@
 
 <h2>Project Interviews and Project Written Proposal</h2>
 
-<p>Both the project interview presentations and the project written proposals will have the same content and answer the same questions. They are just in two different formats. The presentation is oral with some support presenting material if needed and the proposal is written. Both of them shoud address the following questions:</p>
+<p>Both the project interview presentations and the project written proposals will have the same content and answer the same questions.
+They are just in two different formats.
+The presentation is oral with some support presenting material (e.g. 2-4 slides) if needed and the proposal is written.
+Both of them shoud address the following questions:</p>
 
 <ul>
 <li>What is the problem that will be studied/solved?</li>
 <li>Why is it relevant? Why should anyone care?</li>
-<li>Has anyone else worked in this problem before? What have they done? What is left to do? What will be done in this project that is different than the past?</li>
+<li>Has anyone else worked in this problem before? What have they done? What is left to do? What will be done in this project that is different than prior work?</li>
 <li>Are there research questions to be answered by this project? What are they?</li>
 <li>What type of prototype or evaluation will be needed to obtain data to support any claims that could be made at the end of the project?</li>
 <li>What infrastructure will be used? Is this infrastructure available and accessible? Are there challenges to use it?</li>
@@ -19,14 +22,15 @@
 </ul>
 
 <!--
+
 <h2>Profitability Analysis of Data Reorganization to Enable Compiler Assisted Active Lane Consolidation</h2>
 
 <p>Wyatt Praharenka designed a technique, Active Lane Consolidation (ACL), that increases the vector unit utilization in vectorized loops with divergent control flow.
-In one of ACL's incarnations, multiple iterations of a vectorized loop are inspected to compute ahead-of-time the conditions associated with each vector lane.
-ACL then consolidate/merges actives lanes into a vector register until it obtains a uniform vector -- all its lanes are active.
-The merged uniform vectors are used for the loop computations and thus fully utilize the CPU's vector unit.
+In one of ACL&rsquo;s incarnations, multiple iterations of a vectorized loop are inspected to compute ahead-of-time the conditions associated with each vector lane.
+ACL then consolidate/merges actives lanes into a vector register until it obtains a uniform vector &ndash; all its lanes are active.
+The merged uniform vectors are used for the loop computations and thus fully utilize the CPU&rsquo;s vector unit.
 The assemble of uniform vectors requires data to be accessed in a different order than in the original vectorized loop.
-Changes in data access order may lead to worse performance due memory hierarchy effects -- e.g increase in cache misses.</p>
+Changes in data access order may lead to worse performance due memory hierarchy effects &ndash; e.g increase in cache misses.</p>
 
 <p>Packing is a widespread technique for improving cache utilization by reorganizing data in the same order in which it will be accessed.
 The data is reorganized in parts and each portion of the data is copied into temporary buffer in the same order of the memory access in loops.
@@ -43,8 +47,9 @@ Experiments contrasting the performance of ACL with and without packing will rev
 <p>References:</p>
 
 <ul>
-<li><a href="PraharenkaMSc.pdf">Wyatt's M.Sc. thesis</a>.</li>
+<li><a href="PraharenkaMSc.pdf">Wyatt&rsquo;s M.Sc. thesis</a>.</li>
 </ul>
+
 
 <h2>Understanding Why Modern Auto-Vectorizing Compilers Fail to Vectorize Loops</h2>
 
@@ -52,10 +57,10 @@ Experiments contrasting the performance of ACL with and without packing will rev
 Manual vectorization of loops is a complex and error-prone task and thus modern compilers automate it through a set of loop transformation passes.
 Vectorization passes rely on legality and profitability checks to decide if loops are vectorized.
 Such checks depend on data-flow analysis passes to collect information about the target loop.
-Legality checks depend on information such as memory dependencies -- e.g. from array access  -- and the loop's control-flow structure -- e.g. nesting level.
+Legality checks depend on information such as memory dependencies &ndash; e.g. from array access  &ndash; and the loop&rsquo;s control-flow structure &ndash; e.g. nesting level.
 Even more information might be collected to decide on the profitability of vectorizing a loop.
 A loop is deemed profitable to vectorize based, for instance, on the data-types of variables used, memory access alignment, induction variable properties (e.g. monotonicity and step), and knowledge on the termination condition or bound of a loop.
-The frontend of modern compilers do encode some language-level information into the compiler's optimization representation -- Intermediate Representation (IR).
+The frontend of modern compilers do encode some language-level information into the compiler&rsquo;s optimization representation &ndash; Intermediate Representation (IR).
 However, the amount of information available to an auto-vectorizing compiler can vary depending on whether programmers use non-standard attributes, compilation flags, code annotations.</p>
 
 <p>Recent studies show how dependent sensitive different auto-vectorizing compilers are to information withdraw.
@@ -63,8 +68,8 @@ Most, if not all, compilers are less capable of vectorizing loops when one or mo
 Missing a single property might prevent vectorizing from happening at all.
 On the other hand, and even if two compilers have the same amount of information, a loop might be vectorized by one compiler but not the other.
 In this direction, the goal of this project is to assess the loop vectorization passes in LLVM.
-More specifically, the project should determine the most common reasons that stop LLVM's vectorization passes from vectorizing loops.
-The assessment must contrast the effectiveness of LLVM's vectorizers against other auto-vectorizing compilers (e.g. GCC, ICC, and XLC).</p>
+More specifically, the project should determine the most common reasons that stop LLVM&rsquo;s vectorization passes from vectorizing loops.
+The assessment must contrast the effectiveness of LLVM&rsquo;s vectorizers against other auto-vectorizing compilers (e.g. GCC, ICC, and XLC).</p>
 
 <p>References:</p>
 
@@ -72,12 +77,13 @@ The assessment must contrast the effectiveness of LLVM's vectorizers against oth
 <li><a href="https://dl.acm.org/doi/abs/10.1145/3356842">Evaluating Auto-Vectorizing Compilers through Objective Withdrawal of Useful Information</a></li>
 </ul>
 
+
 <h2>Data-flow Analysis to Determine the Legality of Python Code Modernization Transformations</h2>
 
 <p>The amount of available main memory is one of the limiting factors when processing the ever-increasing amount of data that is generated on a daily basis.
 Python is one of the current modern languages that shows growing popularity amount data-scientists for its user-friendliness to both novice programmers and non-computer savvy users.
 Although prototyping and writing utility scripts in Python is simple, non-seasoned Python programmers might face hard limitations as the size of datasets processed by such small Python programs grows.
-For example, opening a file and extracting raw data from it -- e.g. when summarizing results -- is a common idiom in many Python programs.
+For example, opening a file and extracting raw data from it &ndash; e.g. when summarizing results &ndash; is a common idiom in many Python programs.
 The simplest way to implement such idiom in Python is to (1) call builtin or module function to open, (2) read the file, and (3) use a loop to iterate over the data read from the file.
 While (1) is usually a constant time operation, (2) depends on how large the file being read is.
 In addition, in (2) the entire file is read, usually, into a Python list stored in main memory.
@@ -86,7 +92,7 @@ Experienced Python programmers, or those tuned with the latest Python features, 
 A generator in python is an object that allows on-demand data consumption.
 For example, instead of reading the whole file into a list and then applying a summarization function that consumes each list element, a generator that reads each element and passes it to such a function can be used.
 With a generator, each data element is read from the file, as needed by the consuming function or Python expression, without creating a large in-memory list that would be dead after the consuming expression.
-A generator can be any Python expression -- with the yield expression --  and thus can also be applied at the granularity of a function --- with the yield statement.
+A generator can be any Python expression &ndash; with the yield expression &ndash;  and thus can also be applied at the granularity of a function &mdash; with the yield statement.
 The goal of this project is to identify opportunities to modernize Python code by creating a transparent and automated way to use novel Python features.
 The project should create a data-flow analysis that determines the legality of applying modernizing transformations.</p>
 
@@ -96,12 +102,13 @@ The project should create a data-flow analysis that determines the legality of a
 <li><a href="https://ieeexplore.ieee.org/abstract/document/8170118">Quantifying the Transition from Python 2 to 3: An Empirical Study of Python Applications</a></li>
 </ul>
 
-<h2>Detecting Code Idioms in LLVM's Intermediate Representation</h2>
+
+<h2>Detecting Code Idioms in LLVM&rsquo;s Intermediate Representation</h2>
 
 <p>Code idioms are frequent constructs in programs that express a computation, are easily recognized (by humans), and are simple to compose.
 Some idioms become so common that they are incorporated into languages as alternative ways to write frequently used code.
 In the C language, incrementing a variable or accumulating into a variable are idioms found potentially in any program.
-As a result, the C language designers added shorthand ways to express such idioms -- <code>i++</code> or <code>++i</code> instead of <code>i = i + 1</code> and <code>c += a*b</code> instead of <code>c = c + a*b</code>.
+As a result, the C language designers added shorthand ways to express such idioms &ndash; <code>i++</code> or <code>++i</code> instead of <code>i = i + 1</code> and <code>c += a*b</code> instead of <code>c = c + a*b</code>.
 However, there are more interesting idioms that would be profitable for the compiler to be able to detect in order to generate more efficient code.</p>
 
 <p>One class of idioms that are of high interest are those in the linear-algebra domain.
@@ -115,7 +122,7 @@ Changing their code to call BLAS libraries requires manual changes to the code t
 
 <p>KernelFaRer, an automatic idiom recognizer and replacement algorithm, was designed to capture such idioms and transparently replace them by high-performance library calls.
 KernelFaRer is fully implemented as an LLVM IR pass and detects idioms in programs writing in any language that has a LLVM IR frontend.
-KerneFaRer extends LLVM's PatternMatch to facilitate the construction of novel pattern descriptions to detect other idioms.</p>
+KerneFaRer extends LLVM&rsquo;s PatternMatch to facilitate the construction of novel pattern descriptions to detect other idioms.</p>
 
 <p>The following two projects are based on KernelFaRer</p>
 
@@ -129,8 +136,8 @@ In addition, the tests should also indicate that a significant number of variant
 
 <h3>Study Transformation Passes to Match Hidden Instances of Idioms</h3>
 
-<p>There are cases where computations that are not direct instances of a given idiom could be transformed to use an idiom's implementation as a building block.
-Examples are Doolittle's LU Decomposition and Multiresolution Analysis Kernel [Polybench].
+<p>There are cases where computations that are not direct instances of a given idiom could be transformed to use an idiom&rsquo;s implementation as a building block.
+Examples are Doolittle&rsquo;s LU Decomposition and Multiresolution Analysis Kernel [Polybench].
 Neither of those use the GEMM idiom as a building block but could use that idiom after some code transformations.
 In this direction, the goal of project is to investigate which compiler transformation could enable KernelFaRer to replace parts of a computation with calls to high-performance libraries such as BLAS.</p>
 
@@ -142,17 +149,18 @@ In this direction, the goal of project is to investigate which compiler transfor
 <li><a href="https://web.cse.ohio-state.edu/~pouchet.2/software/polybench/">Polybench</a></li>
 </ul>
 
+
 <h2>Assessing Potentially Missed Optimization Opportunities in LLVM</h2>
 
 <p>Designing compiler transformation passes is not an easy task.
-Besides guaranteeing that transformations are correct -- i.e. that they preserve the observable behavior of the program --, designers need to try not to miss opportunities to apply their code transformation by using as much as possible the available analysis results.
+Besides guaranteeing that transformations are correct &ndash; i.e. that they preserve the observable behavior of the program &ndash;, designers need to try not to miss opportunities to apply their code transformation by using as much as possible the available analysis results.
 In traditional compiler development, correctness is the main focus and is part of the development and testing framework.
 This correctness-focused validation usually fails to identify missed optimization opportunities.
 Thus, many easy-to-correct performance regressions are not detected by current compiler development practices.
 To address the need to also test the coverage of modern compiler transformations, NULLSTONE was developed.
-NULLSTONE is a automated compiler performance analysis tool that uses a QA approach for testing coverage and isolation to measure a compiler's optimizer.</p>
+NULLSTONE is a automated compiler performance analysis tool that uses a QA approach for testing coverage and isolation to measure a compiler&rsquo;s optimizer.</p>
 
-<p>The project's main goal is to use NULLSTONE as a tool compare LLVM's abilities to optimize code against GCC's optimization passes.
+<p>The project&rsquo;s main goal is to use NULLSTONE as a tool compare LLVM&rsquo;s abilities to optimize code against GCC&rsquo;s optimization passes.
 The project aims at identifying opportunities that might be missed by LLVM and point to the root cause that stops LLVM, not GCC, to optimize the code, or vice-versa.
 The results must highlight the main transformation passes that miss opportunities and the main reasons that prevent LLVM to apply code transformations.</p>
 
@@ -162,11 +170,12 @@ The results must highlight the main transformation passes that miss opportunitie
 <li><a href="http://www.nullstone.com/index.htm">NULLSTONE</a></li>
 </ul>
 
+
 <h2>Cost-Benefit Analysis of Applying Custom Optimization Pipelines with LLVM</h2>
 
 <p>Optimization pipelines are complex to design because different program codes might get better optimized by applying different optimizations.
 In addition, even if the same set of optimizations benefit different codes, it might be that applying transformations in different orders might produce better results than using a single order on different codes.
-Compiler engineers compromise by deciding on a static pipeline to optimize well the common case -- guided by a selected number of benchmarks -- instead of the impossible design of having infinitely many pipelines, one for each possible program.
+Compiler engineers compromise by deciding on a static pipeline to optimize well the common case &ndash; guided by a selected number of benchmarks &ndash; instead of the impossible design of having infinitely many pipelines, one for each possible program.
 Therefore, there are optimizations that might be executed on key program functions that are not actually transforming or optimizing the code.
 In addition, most transformations require analysis information to be collected in order to access feasibility and benefit to apply the transformation.
 Collecting information and perform code analysis can be expensive.
@@ -180,13 +189,14 @@ The results should indicate whether designing a custom optimization pipeline pro
 <li><a href="https://webdocs.cs.ualberta.ca/~amaral/thesis/RicardoNSanchezMSc.pdf">Applying Support Vector Machines to Discover Just-in-Time Method-Specific Compilation Strategies</a></li>
 </ul>
 
-<h2>An Exploration of LLVM's libFuzzer on Identifying Bugs by Input Fuzzing</h2>
+
+<h2>An Exploration of LLVM&rsquo;s libFuzzer on Identifying Bugs by Input Fuzzing</h2>
 
 <p>Constructing compilers is a very complex task.
 Testing the correctness of compilers is of comparable or greater difficulty.
 Fuzzing, a technique for generating random programs, showed to be very effective in discovering bugs in many compilers.
 LLVM has a maturing project that aims at constructing fuzzers for many if not all of its components.
-The project's main goal is to explorer the existing capabilities and limitations in LLVM's libFuzzer to identify bugs.
+The project&rsquo;s main goal is to explorer the existing capabilities and limitations in LLVM&rsquo;s libFuzzer to identify bugs.
 The exploration should focus on either coverage or correctness bugs and contrast LLVM against GCC with bugs identified during the project of recently reported bugs that are yet not fixed in LLVM.</p>
 
 <p>References:</p>
